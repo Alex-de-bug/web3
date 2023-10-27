@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/templates/templLayout.xhtml">
+    <ui:define name="head">
+        <title>Lab3 - Try</title>
+        <h:outputScript>
+            window.onload = function() {
+                drawG(0);
+            }
+        </h:outputScript>
+    </ui:define>
+
+    <ui:define name="js">
+        <h:outputScript name="js/decart.js"/>
+    </ui:define>
+
+    <ui:define name="main">
+        <h1 class="">График</h1>
+        <b:canvas id="coordinate-system"/>
+        
+        <h:button outcome="index" value="Перейти на начальную страницу"/>
+    </ui:define>
+</ui:composition>
+
+</html>
