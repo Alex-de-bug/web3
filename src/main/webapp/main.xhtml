@@ -12,7 +12,7 @@
         <title>Lab3 - Try</title>
         <h:outputScript>
             window.onload = function() {
-                drawG(0);
+                drawG(2);
             }
         </h:outputScript>
     </ui:define>
@@ -24,7 +24,7 @@
     <ui:define name="main">
         <h1 class="">График</h1>
         <b:canvas id="coordinate-system"/>
-        
+        <h:commandButton onclick="{drawG(3)}">123</h:commandButton>
         <h:button outcome="index" value="Перейти на начальную страницу"/>
     </ui:define>
 </ui:composition>

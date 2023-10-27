@@ -2,9 +2,26 @@ const canvas = document.getElementById("coordinate-system");
 const ctx = canvas.getContext("2d");
 
 
+canvas.width = 300
+canvas.height = 300
+let w = canvas.width,
+    h = canvas.height;
+
+const hatchWidth = 20 / 2;
+const hatchGap = 56;
+
 canvas.addEventListener('click', function (event) {
-    var mouseX = (event.clientX - canvas.getBoundingClientRect().left-250)/40;
-    var mouseY = -(event.clientY - canvas.getBoundingClientRect().top-250)/40;
+    const canvasLeft = canvas.offsetLeft + canvas.clientLeft,
+        canvasTop = canvas.offsetTop + canvas.clientTop;
+
+    const x = event.pageX - canvasLeft,
+        y = event.pageY - canvasTop;
+
+    const xCenter = Math.round((x - w/2) / (hatchGap * (1/3))*1000)/1000,
+        yCenter = Math.round((h/2 - y) / (hatchGap * (1/3))*1000)/1000;
+
+    var mouseX = (event.clientX - canvas.getBoundingClientRect().left-250)/62;
+    var mouseY = -(event.clientY - canvas.getBoundingClientRect().top-250)/62;
 
     mouseX = mouseX.toFixed(2);
     mouseY = mouseY.toFixed(2);
@@ -13,18 +30,18 @@ canvas.addEventListener('click', function (event) {
     var mouseXe = event.clientX - canvas.getBoundingClientRect().left;
     var mouseYe = event.clientY - canvas.getBoundingClientRect().top;
 
-    drawPointe(mouseXe, mouseYe, mouseX, mouseY);
+    drawPointe(mouseXe, mouseYe, xCenter, yCenter);
 
-    x = Number.parseFloat(mouseX);
-    y = Number.parseFloat(mouseY);
-    var form = document.querySelector("#param_r");
-    r = Number.parseInt(form.value );
-
-    if(isNaN(r)){
-        sendDataPoint(x, y, 0);
-    }else{
-        sendDataPoint(x, y, r);
-    }
+    // x = Number.parseFloat(mouseX);
+    // y = Number.parseFloat(mouseY);
+    // var form = document.querySelector("#param_r");
+    // r = Number.parseInt(form.value );
+    //
+    // if(isNaN(r)){
+    //     sendDataPoint(x, y, 0);
+    // }else{
+    //     sendDataPoint(x, y, r);
+    // }
 
 
 });
@@ -35,8 +52,24 @@ function drawG(r){
 
     canvas.width = 500;
     canvas.height = 500;
+    var radiusSpec = 0 ;
 
-    const radiusSpec = 200*r/5;
+    if(r===3){
+         radiusSpec = 200*(r+2)/5;
+    }
+    if(r===2.5){
+         radiusSpec = 200*(r+1.5)/5;
+    }
+    if(r===2){
+         radiusSpec = 200*(r+1)/5;
+    }
+    if(r===1.5){
+         radiusSpec = 200*(r+0.5)/5;
+    }
+    if(r===1){
+         radiusSpec = 200*r/5;
+    }
+
     const radius = 200;
 
     const centerX = canvas.width / 2;
@@ -65,15 +98,15 @@ function drawG(r){
 
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
-    ctx.arc(centerX, centerY, radiusSpec, 3/2*Math.PI, 4/2*Math.PI); // Изменение углов
+    ctx.arc(centerX, centerY, radiusSpec, 0, 1/2*Math.PI); // Изменение углов
     ctx.fillStyle = "#15151515";
     ctx.fill();
     ctx.stroke();
 
     // triangle
     ctx.beginPath();
-    ctx.moveTo(centerX + radiusSpec, centerY);
-    ctx.lineTo(centerX , centerY  +radiusSpec);
+    ctx.moveTo(centerX - radiusSpec, centerY);
+    ctx.lineTo(centerX , centerY  +radiusSpec/2);
     ctx.lineTo(centerX, centerY);
     ctx.fillStyle = "#15151515";
     ctx.fill();
@@ -81,11 +114,11 @@ function drawG(r){
 
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
-    ctx.lineTo(centerX, centerY - radiusSpec/2);
-    ctx.lineTo(centerX - radiusSpec, centerY - radiusSpec/2);
-    ctx.lineTo(centerX - radiusSpec, centerY);
+    ctx.lineTo(centerX, centerY - radiusSpec);
+    ctx.lineTo(centerX + radiusSpec/2, centerY - radiusSpec);
+    ctx.lineTo(centerX + radiusSpec/2, centerY);
     ctx.closePath();
-    ctx.fillStyle = "#15151515";
+    ctx.fillStyle = "rgba(255,0,0,0.08)";
     ctx.fill();
     ctx.stroke();
 
@@ -158,16 +191,16 @@ function drawG(r){
     ctx.font = '12px Arial';
     ctx.fillStyle = '#c6c6c6c6';
 
-    ctx.fillText('5', centerX + radius + pointRadius, centerY + 20);
-    ctx.fillText('4', centerX + (4/5) * radius + pointRadius, centerY + 20);
-    ctx.fillText('3', centerX + (3/5) * radius + pointRadius, centerY + 20);
-    ctx.fillText('2', centerX + (2/5) * radius + pointRadius, centerY + 20);
+    ctx.fillText('3', centerX + radius + pointRadius, centerY + 20);
+    ctx.fillText('2.5', centerX + (4/5) * radius + pointRadius, centerY + 20);
+    ctx.fillText('2', centerX + (3/5) * radius + pointRadius, centerY + 20);
+    ctx.fillText('1.5', centerX + (2/5) * radius + pointRadius, centerY + 20);
     ctx.fillText('1', centerX + (1/5) * radius + pointRadius, centerY + 20);
 
-    ctx.fillText('-5', centerX - radius - pointRadius, centerY + 20);
-    ctx.fillText('-4', centerX - (4/5) * radius - pointRadius, centerY + 20);
-    ctx.fillText('-3', centerX - (3/5) * radius - pointRadius, centerY + 20);
-    ctx.fillText('-2', centerX - (2/5) * radius - pointRadius, centerY + 20);
+    ctx.fillText('-3', centerX - radius - pointRadius, centerY + 20);
+    ctx.fillText('-2.5', centerX - (4/5) * radius - pointRadius, centerY + 20);
+    ctx.fillText('-2', centerX - (3/5) * radius - pointRadius, centerY + 20);
+    ctx.fillText('-1.5', centerX - (2/5) * radius - pointRadius, centerY + 20);
     ctx.fillText('-1', centerX - (1/5) * radius - pointRadius, centerY + 20);
 
     // точки оу
@@ -189,16 +222,16 @@ function drawG(r){
 
     ctx.font = '12px Arial';
     ctx.fillStyle = '#c6c6c6c6';
-    ctx.fillText('-5', centerX + 20, centerY + radius);
-    ctx.fillText('-4', centerX + 20, centerY + (4/5) * radius);
-    ctx.fillText('-3', centerX + 20, centerY + (3/5) * radius);
-    ctx.fillText('-2', centerX + 20, centerY + (2/5) * radius);
+    ctx.fillText('-3', centerX + 20, centerY + radius);
+    ctx.fillText('-2.5', centerX + 20, centerY + (4/5) * radius);
+    ctx.fillText('-2', centerX + 20, centerY + (3/5) * radius);
+    ctx.fillText('-1.5', centerX + 20, centerY + (2/5) * radius);
     ctx.fillText('-1', centerX + 20, centerY + (1/5) * radius);
 
-    ctx.fillText('5', centerX + 20, centerY - radius);
-    ctx.fillText('4', centerX + 20, centerY - (4/5) * radius);
-    ctx.fillText('3', centerX + 20, centerY - (3/5) * radius);
-    ctx.fillText('2', centerX + 20, centerY - (2/5) * radius);
+    ctx.fillText('3', centerX + 20, centerY - radius);
+    ctx.fillText('2.5', centerX + 20, centerY - (4/5) * radius);
+    ctx.fillText('2', centerX + 20, centerY - (3/5) * radius);
+    ctx.fillText('1.5', centerX + 20, centerY - (2/5) * radius);
     ctx.fillText('1', centerX + 20, centerY - (1/5) * radius);
 
 }
@@ -211,15 +244,15 @@ function drawPointe(x, y, xt, yt) {
     xt = Number.parseFloat(xt);
     yt = Number.parseFloat(yt);
 
-    var form = document.querySelector("#param_r");
-    r = Number.parseInt(form.value );
-    kode = validate(xt, yt, r);
+    // var form = document.querySelector("#param_r");
+    // r = Number.parseInt(form.value );
+    // kode = validate(xt, yt, r);
     color = '#000000';
     colore = '#ff9000';
-    if(kode){
-        colore = '#c6c6c6c6';
-        color = '#ff9000';
-    }
+    // if(kode){
+    //     colore = '#c6c6c6c6';
+    //     color = '#ff9000';
+    // }
 
     ctx.beginPath();
     ctx.arc(x, y, pointRadius+1, 0, 2 * Math.PI);
@@ -232,7 +265,7 @@ function drawPointe(x, y, xt, yt) {
     ctx.fill();
 
     ctx.font = '12px Arial';
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = '#000000';
     ctx.fillText('('+xt+'; '+yt+')', x + 10, y);
 
 
