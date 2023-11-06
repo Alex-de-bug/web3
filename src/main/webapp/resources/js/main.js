@@ -1,30 +1,18 @@
+window.onload = function() {
+    drawG(document.getElementById('form:R').value);
+}
+
 let xValid = true, yValid = true, rValid = true;
 
 
 const messages = document.getElementById('messages');
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     // Получаем элементы кнопок и скрытого поля 'X'
-//     var xButtons = document.querySelectorAll("#xBtn p\\:commandButton");
-//     var xInput = document.querySelector("#X");
-//
-//     // Добавляем обработчики событий к каждой кнопке
-//     xButtons.forEach(function(button) {
-//         button.addEventListener("click", function(event) {
-//             var value = event.target.value; // Получаем значение кнопки
-//             xInput.value = value; // Устанавливаем значение в скрытое поле 'X'
-//         });
-//     });
-// });
 
-// X radio validation
+// X btn validation
 let xInput = document.getElementById('form:X');
-const xRadioInput = document.getElementById('xBtn');
-const xRadioInputs = xRadioInput.querySelectorAll('button');
-console.log(xRadioInput);
-console.log(xRadioInputs);
-xRadioInputs.forEach(button => {
-    console.log(button.value);
+const xBtnInput = document.getElementById('xBtn');
+const xBtnInputs = xBtnInput.querySelectorAll('button');
+xBtnInputs.forEach(button => {
     button.addEventListener('click', () => {
         xInput.value = button.textContent;
         xValid = true;
@@ -32,12 +20,13 @@ xRadioInputs.forEach(button => {
     })
 });
 
+
 // // Y input field validation
-// let yInput = document.getElementById('form:Y');
-// yInput.addEventListener('input', () => {
-//     yValid = yInput.value.length > 0;
-//     toggleSubmitBtn();
-// })
+const yInput = document.getElementById('form:Y');
+yInput.addEventListener('input', () => {
+    yValid = (yInput.value.length > 0)&&(Number.parseFloat(yInput.value)>=-5.0)&&(Number.parseFloat(yInput.value)<=3.0);
+    toggleSubmitBtn();
+})
 //
 // R buttons validation
 let rInput = document.getElementById('form:R');
@@ -53,6 +42,21 @@ rRadioInputs.forEach(radio => {
 });
 
 const submitBtn = document.getElementById('form:submitBtn');
+submitBtn.addEventListener('click', () => {
+    let r = Number.parseFloat(rInput.value),
+        x = Number.parseFloat(xInput.value),
+        y = Number.parseFloat(yInput.value);
+
+    if(isNaN(r)){
+        r=0;
+    }
+    if (dataMap.hasOwnProperty(r)) {
+        dataMap[r].push({ x: x, y: y, hit: validate(x, y, r) });
+    } else {
+        dataMap[r] = [{ x: x, y: y, hit: validate(x, y, r) }];
+    }
+    drawPointe(xInput.value*40+250, (-yInput.value*40+250), xInput.value, yInput.value);
+});
 function toggleSubmitBtn() {
     // check X, Y, R validity
     submitBtn.disabled = !(xValid && yValid && rValid)

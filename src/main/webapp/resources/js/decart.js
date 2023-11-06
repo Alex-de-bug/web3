@@ -10,6 +10,16 @@ let w = canvas.width,
 const hatchWidth = 20 / 2;
 const hatchGap = 56;
 
+let dataMap = {
+    0.0: [],
+    1.0: [],
+    1.5: [],
+    2.0: [],
+    2.5: [],
+    3.0: [],
+
+};
+
 canvas.addEventListener('click', function (event) {
     var mouseX = (event.clientX - canvas.getBoundingClientRect().left-250)/40;
     var mouseY = -(event.clientY - canvas.getBoundingClientRect().top-250)/40;
@@ -28,17 +38,29 @@ canvas.addEventListener('click', function (event) {
     var form = document.getElementById('form:R');
     r = Number.parseFloat(form.value );
 
-    // if(isNaN(r)){
-    //     sendDataPoint(x, y, 0);
-    // }else{
-    //     sendDataPoint(x, y, r);
-    // }
+    if(isNaN(r)){
+        rInput.value = 0;
+        r=0;
+    }
+    // Проверяем, существует ли массив для этого r
+    if (dataMap.hasOwnProperty(r)) {
+        // Добавляем данные в массив
+        dataMap[r].push({ x: x, y: y, hit: validate(x, y, r) });
+    } else {
+        // Если массив для r не существует, создаем его и добавляем данные
+        dataMap[r] = [{ x: x, y: y, hit: validate(x, y, r) }];
+    }
+    const oldX = xInput.value, oldY = yInput.value;
+    yInput.value = mouseY;
+    xInput.value = mouseX;
+    submitBtn.onclick(undefined);
+    xInput.value = oldX;
+    yInput.value = oldY;
 
 
 });
 
 function drawG(r){
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     canvas.width = 500;
@@ -200,6 +222,13 @@ function drawG(r){
     ctx.fillText('2', centerX + 20, centerY - (2/5) * radius);
     ctx.fillText('1', centerX + 20, centerY - (1/5) * radius);
 
+    if (dataMap.hasOwnProperty(Number.parseFloat(r))) {
+        let subArray = dataMap[Number.parseFloat(r)];
+        for (var i = 0; i < subArray.length; i++) {
+            drawPointe(subArray[i].x*40+250, (-subArray[i].y*40+250), subArray[i].x, subArray[i].y);
+        }
+    }
+
 }
 
 
@@ -238,6 +267,9 @@ function drawPointe(x, y, xt, yt) {
 }
 
 function validate(x, y, r){
+    if(r===0){
+        return false;
+    }
     if ((x >= 0 && x <= r / 2) && (y >= 0 && y <= r))
         return true;
     else if ((x <= 0 && x >= -r) && (y <= 0 && y >=  -r/2))
@@ -248,3 +280,16 @@ function validate(x, y, r){
         return false;
 }
 
+
+function clearAttempt(){
+    dataMap = {
+        0.0: [],
+        1.0: [],
+        1.5: [],
+        2.0: [],
+        2.5: [],
+        3.0: [],
+
+    };
+    drawG(document.getElementById('form:R').value);
+}

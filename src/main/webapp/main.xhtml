@@ -11,11 +11,6 @@
 <ui:composition template="/templates/templLayout.xhtml">
     <ui:define name="head">
         <title>Lab3 - Try</title>
-        <h:outputScript>
-            window.onload = function() {
-                drawG(0);
-            }
-        </h:outputScript>
     </ui:define>
 
     <ui:define name="js">
@@ -30,7 +25,7 @@
 
 
         <h:form id="form" styleClass="form">
-            <label for="X" class="form__label">X: </label>
+            <label class="form__label">X: </label>
             <div>
                 <div id="xBtn">
                     <h:inputHidden id="X" name="x" value="#{user.x}">
@@ -40,7 +35,7 @@
                     <p:commandButton id="x-m15"  value="-1.5"/>
                     <p:commandButton id="x-m1"  value="-1"/>
                     <p:commandButton id="x-m05" value="-0.5"/>
-                    <p:commandButton id="x-m0"  value="-0"/>
+                    <p:commandButton id="x-m0"  value="0"/>
                     <p:commandButton id="x-05"  value="0.5"/>
                     <p:commandButton id="x-1"  value="1"/>
                     <p:commandButton id="x-15"  value="1.5"/>
@@ -48,12 +43,11 @@
                 </div>
             </div>
 
-            <label for="Y">Y:</label>
+            <label>Y:</label>
             <div>
                 <p:inputText id="Y"
-                             required="required" class="" name="y" placeholder="Введите значение [-5 ... 3]"
-                             type="number" value="#{user.y}" >
-<!--                    <f:validator validatorId="validY"/>-->
+                             required="true" class="" name="y" placeholder="Введите значение [-5 ... 3]"
+                             type="number" value="#{user.y}" min="-5" max="3">
                 </p:inputText>
             </div>
 
@@ -80,9 +74,15 @@
                 <p:commandButton id="submitBtn" type="submit" value="Отправить"
                                  action="#{user.saveData()}" update="results-table"/>
             </div>
+            <div>
+                <p:commandButton id="cleanBtn" value="Очистить"
+                                 action="#{user.clearTable()}" update="results-table" onclick="clearAttempt()"/>
+            </div>
         </h:form>
+
+
         <div class="main__table-block">
-            <p:dataTable id="results-table" tableStyleClass="main__table" var="result" value="#{results.resultList}"
+            <p:dataTable id="results-table" tableStyleClass="main__table" var="result" value="#{user.resultList}"
                          emptyMessage="">
                 <p:column headerText="X">
                     <h:outputText value="#{result.x}" />
@@ -97,7 +97,7 @@
                 </p:column>
 
                 <p:column headerText="Результат">
-                    <h:outputText styleClass="${result.classSuccess}" value="#{result.stringSuccess}" />
+                    <h:outputText value="#{result.hit}" />
                 </p:column>
             </p:dataTable>
         </div>
