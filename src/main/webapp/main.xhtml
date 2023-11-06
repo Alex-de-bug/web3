@@ -5,26 +5,112 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/templates/templLayout.xhtml">
     <ui:define name="head">
         <title>Lab3 - Try</title>
         <h:outputScript>
             window.onload = function() {
-                drawG(2);
+                drawG(0);
             }
         </h:outputScript>
     </ui:define>
 
     <ui:define name="js">
         <h:outputScript name="js/decart.js"/>
+        <h:outputScript name="js/main.js"/>
     </ui:define>
 
     <ui:define name="main">
         <h1 class="">График</h1>
         <b:canvas id="coordinate-system"/>
-        <h:commandButton onclick="{drawG(3)}">123</h:commandButton>
+
+<!--        <h:form id="userForm">-->
+
+
+<!--            <p:inputText id="x" type="number" value="#{user.x}"/>-->
+<!--            <p:inputText id="y" type="number" value="#{user.y}"/>-->
+<!--            <p:inputText id="r" type="number" value="#{user.r}"/>-->
+<!--            <p:inputText id="hit" type="text" value="#{user.hit}"/>-->
+
+<!--            <h:commandButton value="Сохранить" action="#{user.saveData()}" />-->
+<!--        </h:form>-->
+
+
+        <h:form id="form" styleClass="form">
+            <label for="X" class="form__label">X: </label>
+            <div>
+                <div id="xBtn">
+                    <h:inputHidden id="X" name="x" value="#{user.x}">
+                        <!--                    <f:validator validatorId="validatorR"/>-->
+                    </h:inputHidden>
+                    <p:commandButton id="x-m2" value="-2"/>
+                    <p:commandButton id="x-m15"  value="-1.5"/>
+                    <p:commandButton id="x-m1"  value="-1"/>
+                    <p:commandButton id="x-m05" value="-0.5"/>
+                    <p:commandButton id="x-m0"  value="-0"/>
+                    <p:commandButton id="x-05"  value="0.5"/>
+                    <p:commandButton id="x-1"  value="1"/>
+                    <p:commandButton id="x-15"  value="1.5"/>
+                    <p:commandButton id="x-2" value="2"/>
+                </div>
+            </div>
+
+            <label for="Y">Y:</label>
+            <div>
+                <p:inputText id="Y"
+                             required="required" class="" name="y" placeholder="Введите значение [-5 ... 3]"
+                             type="number" value="#{user.y}" >
+<!--                    <f:validator validatorId="validY"/>-->
+                </p:inputText>
+            </div>
+
+            <label class="form__label">R: </label>
+            <div id="rRadio" class="form__row">
+                <h:inputHidden id="R" name="r" value="#{user.r}">
+<!--                    <f:validator validatorId="validatorR"/>-->
+                </h:inputHidden>
+<!--                <input type="hidden" id="R" name="r" value="#{user.r}"/>-->
+<!--                <p:inputNumber id="R" name="r" value="#{user.r}"/>-->
+                    <input id="r-1" name="r" type="radio" value="1"/>
+                    <label for="r-1">1.0</label>
+                    <input id="r-1.5" name="r" type="radio" value="1.5"/>
+                    <label for="r-1.5">1.5</label>
+                    <input id="r-2" name="r" type="radio" value="2"/>
+                    <label for="r-2">2.0</label>
+                    <input id="r-2.5" name="r" type="radio" value="2.5"/>
+                    <label for="r-2.5">2.5</label>
+                    <input id="r-3" name="r" type="radio" value="3"/>
+                    <label for="r-3">3.0</label>
+            </div>
+
+            <div>
+                <p:commandButton id="submitBtn" type="submit" value="Отправить"
+                                 action="#{user.saveData()}" update="results-table"/>
+            </div>
+        </h:form>
+        <div class="main__table-block">
+            <p:dataTable id="results-table" tableStyleClass="main__table" var="result" value="#{results.resultList}"
+                         emptyMessage="">
+                <p:column headerText="X">
+                    <h:outputText value="#{result.x}" />
+                </p:column>
+
+                <p:column headerText="Y">
+                    <h:outputText value="#{result.y}" />
+                </p:column>
+
+                <p:column headerText="R">
+                    <h:outputText value="#{result.r}" />
+                </p:column>
+
+                <p:column headerText="Результат">
+                    <h:outputText styleClass="${result.classSuccess}" value="#{result.stringSuccess}" />
+                </p:column>
+            </p:dataTable>
+        </div>
         <h:button outcome="index" value="Перейти на начальную страницу"/>
     </ui:define>
 </ui:composition>
