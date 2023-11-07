@@ -75,27 +75,27 @@ function drawG(r){
 
     const pointRadius = 3;
 
-    ctx.strokeStyle = "#c6c6c6c6";
+    ctx.strokeStyle = "#2e2e2e";
     ctx.lineWidth = 2;
     ctx.fillStyle = "#ffffff";
 
 
-    ctx.fillStyle = "#ff9000";
+    ctx.fillStyle = "#FF69B4";
     // sign x axis
     ctx.fillText("X", canvas.width - 90, centerY + 30);
-    ctx.fillStyle = "#ff9000";
+    ctx.fillStyle = "#FF69B4";
     // sign y axis
     ctx.fillText("Y", centerX - 30, 90);
 
 
     ctx.fillStyle = 'blue';
-    ctx.strokeStyle = '#ff9000';
+    ctx.strokeStyle = '#2e2e2e';
     ctx.lineWidth = 1;
 
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
     ctx.arc(centerX, centerY, radiusSpec, 0, 1/2*Math.PI); // Изменение углов
-    ctx.fillStyle = "#15151515";
+    ctx.fillStyle = "rgba(255, 105, 180, 0.66)";
     ctx.fill();
     ctx.stroke();
 
@@ -104,7 +104,7 @@ function drawG(r){
     ctx.moveTo(centerX - radiusSpec, centerY);
     ctx.lineTo(centerX , centerY  +radiusSpec/2);
     ctx.lineTo(centerX, centerY);
-    ctx.fillStyle = "#15151515";
+    ctx.fillStyle = "rgba(255, 105, 180, 0.66)";
     ctx.fill();
     ctx.stroke();
 
@@ -114,14 +114,14 @@ function drawG(r){
     ctx.lineTo(centerX + radiusSpec/2, centerY - radiusSpec);
     ctx.lineTo(centerX + radiusSpec/2, centerY);
     ctx.closePath();
-    ctx.fillStyle = "rgba(255,0,0,0.08)";
+    ctx.fillStyle = "rgba(255, 105, 180, 0.66)";
     ctx.fill();
     ctx.stroke();
 
 
-    ctx.strokeStyle = "#c6c6c6c6";
+    ctx.strokeStyle = "#2e2e2e";
     ctx.lineWidth = 2;
-    ctx.fillStyle = "#ff9000";
+    ctx.fillStyle = "#FF69B4";
 
 
     // x
@@ -135,7 +135,7 @@ function drawG(r){
     ctx.moveTo(canvas.width - 90, centerY - 14);
     ctx.lineTo(canvas.width - 70, centerY);
     ctx.lineTo(canvas.width - 90, centerY + 14);
-    ctx.fillStyle = '#c6c6c6c6';
+    ctx.fillStyle = '#2e2e2e';
     ctx.fill();
 
     // x arrow
@@ -143,7 +143,7 @@ function drawG(r){
     ctx.moveTo(canvas.width - 90, centerY - 10);
     ctx.lineTo(canvas.width - 75, centerY);
     ctx.lineTo(canvas.width - 90, centerY + 10);
-    ctx.fillStyle = '#ff9000';
+    ctx.fillStyle = '#FF69B4';
     ctx.fill();
 
     // y axis
@@ -157,7 +157,7 @@ function drawG(r){
     ctx.moveTo(centerX - 14, 90);
     ctx.lineTo(centerX, 70);
     ctx.lineTo(centerX + 14, 90);
-    ctx.fillStyle = '#c6c6c6c6';
+    ctx.fillStyle = '#2e2e2e';
     ctx.fill();
 
     // y arrow
@@ -165,7 +165,7 @@ function drawG(r){
     ctx.moveTo(centerX - 10, 90);
     ctx.lineTo(centerX, 75);
     ctx.lineTo(centerX + 10, 90);
-    ctx.fillStyle = '#ff9000';
+    ctx.fillStyle = '#FF69B4';
     ctx.fill();
 
     // ox
@@ -181,11 +181,11 @@ function drawG(r){
     ctx.arc(centerX - 3/5*radius, centerY, pointRadius, 0, 2 * Math.PI);
     ctx.arc(centerX - 2/5*radius, centerY, pointRadius, 0, 2 * Math.PI);
     ctx.arc(centerX - 1/5*radius, centerY, pointRadius, 0, 2 * Math.PI);
-    ctx.fillStyle = '#ff9000';
+    ctx.fillStyle = '#2e2e2e';
     ctx.fill();
 
     ctx.font = '12px Arial';
-    ctx.fillStyle = '#c6c6c6c6';
+    ctx.fillStyle = '#2e2e2e';
 
     ctx.fillText('3', centerX + (3/5) * radius + pointRadius, centerY + 20);
     ctx.fillText('2', centerX + (2/5) * radius + pointRadius, centerY + 20);
@@ -209,11 +209,11 @@ function drawG(r){
     ctx.arc(centerX, centerY - (2/5) * radius, pointRadius, 0, 2 * Math.PI);
     ctx.arc(centerX, centerY - (1/5) * radius, pointRadius, 0, 2 * Math.PI);
 
-    ctx.fillStyle = '#ff9000';
+    ctx.fillStyle = '#2e2e2e';
     ctx.fill();
 
     ctx.font = '12px Arial';
-    ctx.fillStyle = '#c6c6c6c6';
+    ctx.fillStyle = '#2e2e2e';
     ctx.fillText('-3', centerX + 20, centerY + (3/5) * radius);
     ctx.fillText('-2', centerX + 20, centerY + (2/5) * radius);
     ctx.fillText('-1', centerX + 20, centerY + (1/5) * radius);
@@ -242,11 +242,11 @@ function drawPointe(x, y, xt, yt) {
     var form = document.getElementById('form:R');
     r = Number.parseFloat(form.value );
     kode = validate(xt, yt, r);
-    color = '#000000';
-    colore = '#ff9000';
+    color = '#2e2e2e';
+    colore = '#FF69B4';
     if(kode){
-        colore = '#c6c6c6c6';
-        color = '#ff9000';
+        colore = '#ffffff';
+        color = '#FF69B4';
     }
 
     ctx.beginPath();
