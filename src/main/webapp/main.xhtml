@@ -35,7 +35,7 @@
                     <div>
                         <div id="xBtn">
                             <h:inputHidden id="X" name="x" value="#{user.x}">
-                                <!--                    <f:validator validatorId="validatorR"/>-->
+                                <f:validator validatorId="validatorX"/>
                             </h:inputHidden>
                             <p:commandButton id="x-m2" value="-2"/>
                             <p:commandButton id="x-m15"  value="-1.5"/>
@@ -55,6 +55,7 @@
                         <p:inputText id="Y"
                                      required="true" class="" name="y" placeholder="Введите значение [-5 ... 3]"
                                      type="number" value="#{user.y}" min="-5" max="3">
+                            <f:validator validatorId="validatorY"/>
                         </p:inputText>
                     </div>
                 </div>
@@ -62,10 +63,8 @@
                     <label class="form__label">R: </label>
                     <div id="rRadio" class="form__row">
                         <h:inputHidden id="R" name="r" value="#{user.r}">
-        <!--                    <f:validator validatorId="validatorR"/>-->
+                            <f:validator validatorId="validatorR"/>
                         </h:inputHidden>
-        <!--                <input type="hidden" id="R" name="r" value="#{user.r}"/>-->
-        <!--                <p:inputNumber id="R" name="r" value="#{user.r}"/>-->
                             <input id="r-1" name="r" type="radio" value="1"/>
                             <label for="r-1">1.0</label>
                             <input id="r-1.5" name="r" type="radio" value="1.5"/>

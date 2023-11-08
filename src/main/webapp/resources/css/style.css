@@ -26,9 +26,12 @@ input {
     text-align: center; /* Выравнивание по центру */
     margin: 100px auto; /* Горизонтальное выравнивание по центру */
     padding: 20px 0 20px 0;
-    width: 603px;
+    width: 597px;
     cursor: pointer;
     background: url("#{resource['images/ken.png']}");
+    border-radius: 10px;
+    box-shadow: -2px -2px #FFB6C1, 2px 2px rgba(255, 105, 180, 0.66), -3px 0 4px #000000;
+
 }
 
 .btn{

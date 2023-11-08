@@ -232,5 +232,8 @@ tbody tr:nth-child(even) {
     width: 596px;
     cursor: pointer;
     background: url("#{resource['images/ken.png']}");
+    border-radius: 10px;
+    box-shadow: -2px -2px #FFB6C1, 2px 2px rgba(255, 105, 180, 0.66), -3px 0 4px #000000;
+
 }
 
