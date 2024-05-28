@@ -19,6 +19,13 @@
     </properties>
 
     <dependencies>
+        <!-- https://mavenlibs.com/maven/pom/org.graalvm.visualvm.cluster/visualvm -->
+        <dependency>
+            <groupId>org.graalvm.visualvm.cluster</groupId>
+            <artifactId>visualvm</artifactId>
+            <version>2.1.6</version>
+        </dependency>
+
         <dependency>
             <groupId>net.bootsfaces</groupId>
             <artifactId>bootsfaces</artifactId>

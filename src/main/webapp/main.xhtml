@@ -25,9 +25,6 @@
             <b:canvas id="coordinate-system"/>
         </div>
 
-
-
-
         <h:form id="form" styleClass="form">
             <div class="form_sky">
                 <div class="x_panel">
@@ -79,13 +76,25 @@
                 </div>
                 <div>
                     <p:commandButton id="submitBtn" type="submit" value="Отправить"
-                                     action="#{user.saveData()}" update="results-table"/>
+                                     action="#{user.saveData()}" update="results-table attempt-count attempt-count-lose attempt-interval"
+                                     />
                 </div>
                 <div>
                     <p:commandButton id="cleanBtn" value="Очистить"
                                      action="#{user.clearTable()}" update="results-table" onclick="clearAttempt()"/>
                 </div>
-
+                <div>
+                    <label>Количество попыток:</label>
+                    <h:outputText id="attempt-count" value="#{user.counterBean.countHits}" />
+                </div>
+                <div>
+                    <label>Количество промахов:</label>
+                    <h:outputText id="attempt-count-lose" value="#{user.counterBean.loseHits}" />
+                </div>
+                <div>
+                    <label>Среднее время клика:</label>
+                    <h:outputText id="attempt-interval" value="#{user.clickIntervalBean.averageInterval}" />
+                </div>
             </div>
         </h:form>
 
